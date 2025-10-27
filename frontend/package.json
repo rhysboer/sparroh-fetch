@@ -8,6 +8,7 @@
     "build": "vite build"
   },
   "dependencies": {
+    "js-levenshtein": "^1.1.6",
     "pinia": "^3.0.3",
     "vue": "^3.5.17"
   },

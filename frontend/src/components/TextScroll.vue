@@ -27,10 +27,10 @@
 
     .text {
         margin: 0;
-        text-align: left;
+        text-align: center;
         white-space: nowrap;
         font-weight: 500;
-        font-size: 2em;
+        font-size: 1.3em;
 
         /*animation: slide 10s infinite alternate linear;*/
     }

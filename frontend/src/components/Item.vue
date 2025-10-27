@@ -1,64 +1,73 @@
 <script setup>
-    const props = defineProps(['img', 'title']);
-    defineEmits(['onClick']);
+    import Price from './Price.vue';
+    import logo from '@/assets/aliexpress.svg';
+
+    const props = defineProps(['item']);
 </script>
 
 <template>
-    <button class='item' @click='$emit("onClick")'>
-        <img :src="props.img" alt='Item Image'>
-        <div class='content'>
-            <span class='title'>{{ props.title }}</span>
+    <a class='item' :href='props.item.url' target='_blank' rel='noopener noreferrer'>
+        <div class='group'>
+            <img class='image' :src="props.item.image"></img>
+            <p class='title'>{{ props.item.title }}</p>
         </div>
-        <div class='arrow'>
-            <img src='/rightarrow.svg'></img>
+        <div class='group cost'>
+            <p>Price</p>
+            <Price :price='props.item.price'></Price>
         </div>
-    </button>
+        <div class='group'>
+            <img class='logo' :src='logo'></img>
+        </div>
+    </a>
 </template>
-
+    
 <style scoped>
     .item{
-        --imgsize: 50px;
         width: 100%;
-        height: fit-content;
-        display: grid;
-        grid-template-columns: var(--imgsize) minmax(0, 1fr) 25px;
-        gap: 5px;
         background-color: white;
         border-radius: 10px;
-        padding: 5px;
+        padding: 10px;
         box-sizing: border-box;
         outline: 1px rgb(223, 223, 223) solid;
-        overflow: hidden;
-        cursor: pointer;
-        border: none;
+        color: black;
+        text-decoration: none;
     }
 
-    .item > img{
-        width: var(--imgsize);
-        height: var(--imgsize);
+    .item p {
+        font-size: 16px;
+        margin: 0;
+        padding: 0;
     }
 
-    .content{
-        overflow: hidden;
-        white-space: nowrap;
+    .image{
+        width: 50px;
+        height: 50px;
+    }
+
+    .group{
+        display: flex;
+        gap: 10px;
     }
 
     .title{
         text-align: left;
-        display: inline-block;
-        margin: 0;
-        font-weight: 500;
-        transform: translateX(0%);
+        display: -webkit-box;
+        line-clamp: 2;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
-    .arrow {
-        display: flex;
+    .cost{
+        padding: 10px 0px;
+        width: 60%;
+        max-width: 300px;
+        justify-content: space-between;
         align-items: center;
-        justify-content: center;
+        margin: auto;
     }
 
-    .arrow > img{
-        width: 25px;
-        height: 25px;
+    .logo{
+        height: 13px;
     }
 </style>

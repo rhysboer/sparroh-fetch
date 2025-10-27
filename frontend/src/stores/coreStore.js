@@ -3,11 +3,12 @@ import { defineStore } from "pinia";
 const coreStore = defineStore('coreStore', {
     state: () => ({
         cart: new Map(),
-        items: [],
+        items: new Map(),
         selectedID: null 
     }),
     getters: {
-        selected: (state) => state.cart.get(state.selectedID)
+        selected: (state) => state.cart.get(state.selectedID),
+        selectedItems: (state) => state.items.get(state.selectedID)
     },
     actions: {
         setCart(items) {
@@ -22,8 +23,11 @@ const coreStore = defineStore('coreStore', {
                 return;
             }
 
-            console.log('NULL');
             this.selectedID = null;
+        },
+
+        setItems(id, items){
+            this.items.set(id, items);
         }
     }
 });

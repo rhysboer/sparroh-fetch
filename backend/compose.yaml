@@ -1,0 +1,27 @@
+services:
+  # BACKEND Development
+  backend-dev:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - .:/app
+    command: npm run dev
+    profiles: ["dev"]
+  
+  # BACKEND Production
+  backend:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env    
+    environment:
+      - NODE_ENV=production
+    command: npm run start
+    profiles: ["prod"]
+

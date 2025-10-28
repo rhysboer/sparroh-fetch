@@ -23,9 +23,14 @@ export function sortByRelevance(items, title){
         let score = 0;
 
         words.forEach(wordA => {
+            let lowest = 100000;
             titleWords.forEach(wordB => {
-                score += levenshtein(wordA, wordB);
-            })
+                lowest = Math.min(levenshtein(wordA, wordB), lowest);
+            });
+
+            if(titleWords.length > 0){
+                score += score;
+            }
         });
 
         values.push({

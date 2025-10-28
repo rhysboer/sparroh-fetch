@@ -1,5 +1,6 @@
 
 export default function findMatches(item, onFinish){
+    console.log('hello');
     fetch('http://localhost:8080/api/items', {
         mode: 'cors', method: 'POST', 
         headers: { 'Content-Type': 'application/json' },

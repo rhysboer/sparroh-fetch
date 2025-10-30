@@ -10,6 +10,10 @@ services:
       - NODE_ENV=development
     volumes:
       - .:/app
+    depends_on:
+      - redis
+    networks:
+      - backend_network
     command: npm run dev
     profiles: ["dev"]
   
@@ -22,6 +26,21 @@ services:
       - .env    
     environment:
       - NODE_ENV=production
+    depends_on:
+      - redis
+    networks:
+      - backend_network
     command: npm run start
     profiles: ["prod"]
 
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - backend_network
+
+networks:  
+  backend_network:    
+    name: backend-network

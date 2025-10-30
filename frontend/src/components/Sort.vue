@@ -1,6 +1,7 @@
 <script setup>
     import icon from '@/assets/sort.svg';
     import { ref } from 'vue';
+import IconButton from './IconButton.vue';
     
     const emits = defineEmits(['onChange']);
 
@@ -21,33 +22,17 @@
 </script>
 
 <template>
-    <button class='sort' @click='show = !show' @mouseleave='show = false'>
-        <img class='icon' :src='icon'></img>
-        <p style='font-weight: 600;'>Sort</p>
+    <div class='sort' @mouseleave='show = false'>
+        <IconButton :icon='icon' text='Sort' @on-click='show = !show'></IconButton>
         <div :class='["submenu", show ? "visible" : ""]'>
             <p v-for="(v, i) in options" :key='i' :class='selected == i ? "selected" : ""' @click='onClick(i)'>{{ v }}</p>
         </div>
-    </button>
+    </div>
 </template>
 
 <style scoped>
     .sort{
         position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        cursor: pointer;
-        background-color: white;
-        padding: 3px 7px;
-        border-radius: 15px;
-        border: none;
-        outline: 1px rgb(223, 223, 223) solid;
-    }
-
-    .icon{
-        width: 25px;
-        height: 25px;
     }
 
     .submenu{
@@ -68,6 +53,7 @@
         text-align: left;
         padding: 5px;
         padding-left: 15px;
+        cursor: pointer;
     }
 
     .submenu p:hover{

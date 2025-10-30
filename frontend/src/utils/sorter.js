@@ -19,17 +19,18 @@ export function sortByRelevance(items, title){
     const values = [];
 
     items.forEach((e, i) => {
-        const words = e.title.split(' ');
+        const words = e.title.toLowerCase().split(' ');
         let score = 0;
 
         words.forEach(wordA => {
             let lowest = 100000;
             titleWords.forEach(wordB => {
-                lowest = Math.min(levenshtein(wordA, wordB), lowest);
+                const value = levenshtein(wordA, wordB);
+                lowest = Math.min(value, lowest);
             });
 
             if(titleWords.length > 0){
-                score += score;
+                score += lowest;
             }
         });
 
@@ -39,6 +40,7 @@ export function sortByRelevance(items, title){
         });
     });
     
+    console.log(values);
     values.sort((a, b) => a.score - b.score);
     values.forEach((e, i) => {
         const index = e.index;

@@ -26,7 +26,7 @@
             <button :key='key' class='item' @click='() => core.setSelected(item.id)'>
                 <img :src='item.image' alt='Item Image'>
                 <div class='content'>
-                    <span class='title'>{{ item.title }}</span>
+                    <p class='title'>{{ item.title }}</p>
                 </div>
                 <div class='arrow'>
                     <img src='/rightarrow.svg'></img>
@@ -82,10 +82,8 @@
 
     .title{
         text-align: left;
-        display: inline-block;
         margin: 0;
         font-weight: 500;
-        transform: translateX(0%);
     }
 
     .arrow {

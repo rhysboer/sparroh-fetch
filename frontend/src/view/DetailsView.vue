@@ -1,48 +1,16 @@
 <script setup>
-    import findMatches from '../api/server';
-    import TextScroll from '../components/TextScroll.vue';
-    import Sort from '../components/Sort.vue';
-    import coreStore from '../stores/coreStore';
-    import Item from '../components/Item.vue';
-    import { computed, ref } from 'vue';
-    import { sortByPrice, sortByRelevance } from '../utils/sorter';
+    import TextScroll from '@/components/TextScroll.vue';
+    import coreStore from '@/stores/coreStore';
+    import Items from '@/components/Items.vue';
 
-    const sortBy = ref(0);
     const core = coreStore();
     const coreItem = core.cart.get(core.selectedID);
-
-    const items = computed(() => {
-        if(core.selectedItems == null){
-            return [];
-        }
-
-        const entries = Array.from(core.selectedItems);
-        if(sortBy.value == 0){ 
-            // Relevance
-            sortByRelevance(entries, coreItem.title);
-        }else{
-            // Price Ascending / decending
-            sortByPrice(entries, sortBy.value == 1 ? true : false); 
-        }
-
-        return entries;
-    });
-
-    console.log('items', items);
-
-    function onClick(){
-        findMatches(coreItem, (data, err) => {
-            if(err == false){
-                core.setItems(data.id, data.items);
-            }
-        });
-    }
 </script>
 
 <template>
     <div class='container'>
-        <div class='content'>
-            <button class='button' @click="core.setSelected(null)">
+        <div class='content border'>
+            <button class='exit' @click="core.setSelected(null)">
                 <img src='/rightarrow.svg'></img>
             </button>
             <div class='itemdetails'>
@@ -57,12 +25,7 @@
             </div>
         </div>
         <div class='content items'>
-            <div class='group'>
-                <div></div>
-                <Sort @on-change='(id) => sortBy=id'></Sort>
-            </div>
-            <button @click='onClick'>Find Matches</button>
-            <Item v-for="item in items" :item='item'></Item>
+            <Items></Items>
         </div>
     </div>
 </template>
@@ -77,6 +40,10 @@
     .content{
         padding: 10px;
         box-sizing: border-box;
+    }
+
+    .border{
+        border-bottom: 1px rgb(223, 223, 223) solid;
     }
 
     .itemdetails{
@@ -120,7 +87,7 @@
         gap: 10px;
     }
 
-    .button{
+    .exit{
         margin: 0;
         padding: 0;
         background-color: transparent;
@@ -133,7 +100,7 @@
         cursor: pointer;
     }
     
-    .button img{
+    .exit img{
         width: 30px;
         height: 30px;
         transform-origin: center;
@@ -145,9 +112,5 @@
         width: 100px;
         height: 100px;
         border: 1px rgb(223, 223, 223) solid;
-    }
-
-    .group{
-        display: flex;
     }
 </style>

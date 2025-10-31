@@ -1,5 +1,5 @@
 <script setup>
-    const length = 2; // Animation Length
+    const length = 2.5; // Animation Length
     const step = length / 4;
 </script>
 

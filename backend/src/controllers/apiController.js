@@ -17,7 +17,8 @@ async function findItems(req, res){
     //return;
 
     let isCached = true;
-    let data = null; //await getData(id);
+    let data = await getData(id);
+
 
     if(data == null){
         isCached = false;
@@ -40,7 +41,7 @@ async function findItems(req, res){
         console.log('cache hit');
         data = JSON.parse(data);
     }
-
+    
     res.json({
         id: id,
         items: data

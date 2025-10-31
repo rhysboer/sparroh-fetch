@@ -1,10 +1,10 @@
 <script setup>
     import TextScroll from '@/components/TextScroll.vue';
-    import coreStore from '@/stores/coreStore';
+    import { coreStore } from '@/stores/coreStore';
     import Items from '@/components/Items.vue';
 
     const core = coreStore();
-    const coreItem = core.cart.get(core.selectedID);
+    const item = core.selected;
 </script>
 
 <template>
@@ -14,13 +14,13 @@
                 <img src='/rightarrow.svg'></img>
             </button>
             <div class='itemdetails'>
-                <img class='image' :src='coreItem.image'></img>
+                <img class='image' :src='item.image_url'></img>
                 <div style='width: 80%; margin: auto;'>
-                    <TextScroll :text='coreItem.title'></TextScroll>
+                    <TextScroll :text='item.title'></TextScroll>
                 </div>
                 <div class='detail'>
                     <p>Price</p>
-                    <p class='price'>{{ coreItem.amount }}</p>
+                    <p class='price'>{{ item.price }}</p>
                 </div>
             </div>
         </div>

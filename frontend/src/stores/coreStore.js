@@ -1,65 +1,75 @@
 import { defineStore } from "pinia";
+import { reactive } from "vue";
 
-const state = {
+export const state = {
     NO_DATA: 'nodata',
     LOADING: 'loading',
     ERROR: 'error',
     SUCCESS: 'success'
 }
 
-const coreStore = defineStore('coreStore', {
+export const coreStore = defineStore('coreStore', {
     state: () => ({
-        cart: new Map(),
-        items: new Map(),
-        selectedID: null 
+
+        newCart: new Map(),
+        id: null, /* Selected Key/Id */
     }),
     getters: {
-        selected: (state) => state.cart.get(state.selectedID),
-        selectedItems: (state) => state.items.get(state.selectedID)?.items ?? [],
-        selectedState: (state) => state.items.get(state.selectedID)?.state ?? null,
-        selectedError: (state) => state.items.get(state.selectedID)?.error ?? null,
-        isLoading: (state) => state.items
+        selected: (state) => state.newCart.get(state.id) ?? null,
+        state: (state) => state.id ? state.newCart.get(state.id).items_state : null, 
+        error: (state) => state.id ? state.newCart.get(state.id).error : '',
+        entries: (state) => state.id ? state.newCart.get(state.id).items : [],
+        title: (state) => state.id ? state.newCart.get(state.id).title : '',
     },
     actions: {
-        setCart(items) {
-            this.cart = new Map();
-            this.items = new Map();
+        addCartItems(items){
+            items.forEach(item => {
+                const id = item.id;
+                if(!this.newCart.has(id)){
+                    this.newCart.set(id, new reactive({
+                        id: id,
+                        price: item.amount,
+                        price_code: item.code,
+                        image_url: item.image,
+                        title: item.title,
+                        items_state: state.NO_DATA,
+                        items: [],
+                        error: ''
+                    }));
+                }
+            })
+        },
 
-            items.forEach(e => {
-                this.cart.set(e.id, e);
-                this.items.set(e.id, {
-                    state: state.NO_DATA,
-                    error: null,
-                    items: null
-                });
-            });
+        addFoundEntries(id, entries){
+            const item = this.newCart.get(id); 
+            if(item && entries){
+                item.items_state = state.SUCCESS;
+                item.items = entries;
+            }
         },
 
         setSelected(id){
-            if(this.cart.has(id)){
-                this.selectedID = id;
+            if(this.newCart.has(id)){
+                this.id = id;
                 return;
             }
 
-            this.selectedID = null;
+            this.id = null;
         },
 
-        setItems(id, items){
-            const item = this.items.get(id); 
+        setLoading(){
+            const item = this.newCart.get(this.id);
             if(item){
-                item.state = !items && items.length > 0 ? state.SUCCESS : state.NO_DATA;
-                item.items = items;
+                item.items_state = state.LOADING;
             }
         },
 
         setError(id, errMsg){
-            const item = this.items.get(id);
+            const item = this.newCart.get(id);
             if(item){
-                item.state = state.ERROR;
+                item.items_state = state.ERROR;
                 item.error = errMsg;
-            }
+            } 
         }
     }
 });
-
-export default coreStore;

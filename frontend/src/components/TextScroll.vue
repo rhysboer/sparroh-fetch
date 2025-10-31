@@ -8,7 +8,6 @@
 
     onMounted(() => {
         distance.value = -(textRef.value.scrollWidth - containerRef.value.clientWidth);
-        console.log(distance.value);
     });
 </script>
 

@@ -9,8 +9,7 @@ export async function findItemsAmazon(onFinish) {
                 return [];
             
             const data = JSON.parse(elements.textContent).lineItemInputs;
-            console.log(data);
-            
+                 
             const items = [];
             data.forEach(e => {
                 const item = document.querySelector(`[data-asin="${e.asin}"]`);

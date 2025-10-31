@@ -1,5 +1,14 @@
 import levenshtein from 'js-levenshtein';
 
+export function sorter(items, title, sortId){
+    switch(sortId){
+        case 0: sortByRelevance(items, title); break;
+        case 1: sortByPrice(items, true); break;
+        case 2: sortByPrice(items, false); break;
+        default: console.error(`Invalid sort ID of ${sortId}`); break;
+    }
+}
+
 export function sortByPrice(items, ascending = true){
     if(ascending){
         items.sort((a, b) => a.price - b.price);
@@ -40,7 +49,6 @@ export function sortByRelevance(items, title){
         });
     });
     
-    console.log(values);
     values.sort((a, b) => a.score - b.score);
     values.forEach((e, i) => {
         const index = e.index;

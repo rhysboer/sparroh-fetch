@@ -1,30 +1,29 @@
 <script setup>
     import { onMounted } from 'vue';
     import { findItemsAmazon } from '../utils/amazon';
-    import coreStore from '../stores/coreStore';
+    import { coreStore }from '../stores/coreStore';
 
     const core = coreStore();
 
     onMounted(() => {
         findItemsAmazon((res) => {
-            console.log(res);
-            core.setCart(res);
+            core.addCartItems(res)
+            //core.setCart(res);
         });
     });
 
     function refresh() {
         findItemsAmazon((res) => {
-            console.log(res);
-            core.setCart(res);
+            core.addCartItems(res);
         });
     }
 </script>
 
 <template>
     <div class='container'>
-        <div v-for="[key, item] in core.cart">
+        <div v-for="[key, item] in core.newCart">
             <button :key='key' class='item' @click='() => core.setSelected(item.id)'>
-                <img :src='item.image' alt='Item Image'>
+                <img :src='item.image_url' alt='Item Image'>
                 <div class='content'>
                     <p class='title'>{{ item.title }}</p>
                 </div>

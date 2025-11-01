@@ -11,11 +11,6 @@ async function findItems(req, res){
 
     console.log(req.body);
 
-    //setTimeout(() => {
-    //    res.json({});
-    //}, 5000);
-    //return;
-
     let isCached = true;
     let data = await getData(id);
 

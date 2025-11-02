@@ -52,4 +52,4 @@ Simply visit Amazon, add items to your cart, then open Sparroh at checkout and s
 Instructions coming soon.
 
 ## Tech Stack
-![My Skills](https://skillicons.dev/icons?i=vue,nodejs,express,redis,vite,js,html,css&theme=dark)
+![My Skills](https://skillicons.dev/icons?i=vue,nodejs,express,redis,vite,docker,js,html,css&theme=dark)

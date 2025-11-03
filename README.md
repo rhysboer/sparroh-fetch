@@ -2,6 +2,8 @@
 
 **sparroh-fetch** is a Chrome extension that allows users to scan their cart and find cheaper or similar alternatives on third-party marketplaces, it was built to help combat dropshipping and price hikes. It utilises AI to help summarise product keywords for improved search results and a Redis cache system on the backend to help lower API costs.
 
+![terminal](media/showcase.gif)
+
 ## Features
  - AI optimised product keywords for better search results.
  - Simple user friendly UI.
